@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 
 public class TextBut extends JFrame{
 
-    private static int formCount = 0;
+    private static int formCount = 1;
     private int formIndex;
 
     public TextBut() {
-        formCount++;
+//        formCount++;
         formIndex = formCount;
         init();
     }
@@ -46,8 +46,7 @@ public class TextBut extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (formIndex <= 3) {
                     dispose();
-                    formCount--;
-                    if (formCount == 0) {
+                    if (formIndex == 3) {
                         System.exit(0);
                     }
                 }
@@ -62,7 +61,7 @@ public class TextBut extends JFrame{
         add(jPanel);
 
         pack();
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(500, 500, 500, 500);
         setVisible(true);
     }
@@ -72,8 +71,8 @@ public class TextBut extends JFrame{
             @Override
             public void run() {
                 for(int i = 0;i<3;i++){
-                    TextBut s = new TextBut();
-                    if(i==2) s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    new TextBut();
+                    formCount++;
                 }
             }
         });
