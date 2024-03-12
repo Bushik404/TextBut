@@ -62,7 +62,7 @@ public class TextBut extends JFrame{
         add(jPanel);
 
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(500, 500, 500, 500);
         setVisible(true);
     }
@@ -71,9 +71,10 @@ public class TextBut extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TextBut();
-                new TextBut();
-                new TextBut();
+                for(int i = 0;i<3;i++){
+                    TextBut s = new TextBut();
+                    if(i==2) s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                }
             }
         });
     }
