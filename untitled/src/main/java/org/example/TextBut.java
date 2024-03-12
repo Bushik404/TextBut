@@ -4,10 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TextBut extends JFrame implements Runnable{
-
-    @Override
-    public void run() {
+public class TextBut extends JFrame{
+    public TextBut(){
+        init();
+    }
+    public void init() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
 
@@ -55,8 +56,11 @@ public class TextBut extends JFrame implements Runnable{
     }
 
     public static void main(String[] args) {
-        TextBut tst = new TextBut();
-        Thread thread = new Thread(tst);
-        thread.start();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new TextBut();
+            }
+        });
     }
 }
