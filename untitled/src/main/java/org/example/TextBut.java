@@ -5,7 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TextBut extends JFrame{
-    public TextBut(){
+
+    private static int formCount = 0;
+    private int formIndex;
+
+    public TextBut() {
+        formCount++;
+        formIndex = formCount;
         init();
     }
     public void init() {
@@ -26,7 +32,7 @@ public class TextBut extends JFrame{
         add.setPreferredSize(buttonSize);
         clear.setPreferredSize(buttonSize);
         exit.setPreferredSize(buttonSize);
-
+        setTitle(String.valueOf(formIndex));
 
         clear.addActionListener(new ActionListener() {
             @Override
@@ -38,7 +44,13 @@ public class TextBut extends JFrame{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                if (formIndex <= 3) {
+                    dispose();
+                    formCount--;
+                    if (formCount == 0) {
+                        System.exit(0);
+                    }
+                }
             }
         });
 
@@ -59,6 +71,8 @@ public class TextBut extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                new TextBut();
+                new TextBut();
                 new TextBut();
             }
         });
