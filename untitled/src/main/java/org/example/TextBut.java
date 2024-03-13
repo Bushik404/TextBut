@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class TextBut extends JFrame {
 
     private static int formCount = 1;
     private static TextBut instance;
-    private static JTextArea textArea;
 
     private int formIndex;
 
@@ -23,14 +23,11 @@ public class TextBut extends JFrame {
         }
         return instance;
     }
-    public static void clearTxt(){
-        textArea.setText("");
-    }
     public void init() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
 
-        textArea = new JTextArea();
+        JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -60,10 +57,9 @@ public class TextBut extends JFrame {
                     setVisible(false);
                     setTitle(String.valueOf(formCount));
                     openNewWindow();
-                    clearTxt();
                     setVisible(true);
                 } else {
-                    System.exit(0);
+                    dispose();
                 }
             }
         });
@@ -86,6 +82,7 @@ public class TextBut extends JFrame {
     }
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
