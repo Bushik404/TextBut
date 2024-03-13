@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 
 public class TextBut extends JFrame {
 
+    private static int formCount = 1;
     private static TextBut instance;
-    private static int formCount = 0;
+    private static JTextArea textArea;
 
     private int formIndex;
 
@@ -22,45 +23,28 @@ public class TextBut extends JFrame {
         }
         return instance;
     }
-
-    public void init() {
-        setTitle(String.valueOf(formIndex));
-
-        JPanel jPanel = createPanel();
-        add(jPanel);
-
-        pack();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(500, 500, 500, 500);
-        setVisible(true);
+    public static void clearTxt(){
+        textArea.setText("");
     }
-
-    private JPanel createPanel() {
+    public void init() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
 
-        JTextArea textArea = createTextArea();
+        textArea = new JTextArea();
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
         jPanel.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel buttonPanel = createButtonPanel(textArea);
-        jPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        return jPanel;
-    }
-
-    private JTextArea createTextArea() {
-        JTextArea textArea = new JTextArea();
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        return textArea;
-    }
-
-    private JPanel createButtonPanel(JTextArea textArea) {
         JPanel buttonPanel = new JPanel();
-        JButton add = createButton("Добавить");
-        JButton clear = createButton("Очистить");
-        JButton exit = createButton("Выход");
+        JButton add = new JButton("Добавить");
+        JButton clear = new JButton("Очистить");
+        JButton exit = new JButton("Выход");
+        Dimension buttonSize = new Dimension(100, 30);
+        add.setPreferredSize(buttonSize);
+        clear.setPreferredSize(buttonSize);
+        exit.setPreferredSize(buttonSize);
+
 
         clear.addActionListener(new ActionListener() {
             @Override
@@ -72,11 +56,14 @@ public class TextBut extends JFrame {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (formIndex <= 3) {
-                    dispose();
-                    if (formIndex == 3) {
-                        System.exit(0);
-                    }
+                if (formCount <= 3) {
+                    setVisible(false);
+                    setTitle(String.valueOf(formCount));
+                    openNewWindow();
+                    clearTxt();
+                    setVisible(true);
+                } else {
+                    System.exit(0);
                 }
             }
         });
@@ -84,32 +71,25 @@ public class TextBut extends JFrame {
         buttonPanel.add(add);
         buttonPanel.add(clear);
         buttonPanel.add(exit);
+        jPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        return buttonPanel;
+        add(jPanel);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(500, 500, 500, 500);
+        setVisible(true);
     }
 
-    private JButton createButton(String text) {
-        JButton button = new JButton(text);
-        Dimension buttonSize = new Dimension(100, 30);
-        button.setPreferredSize(buttonSize);
-        return button;
+    private void openNewWindow() {
+        getInstance();
+        formCount++;
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
-                TextBut inst1 = getInstance();
-                inst1.setVisible(true);
-                inst1.init();
-                TextBut inst2 = getInstance();
-                inst2.setVisible(true);
-                inst2.init();
-                TextBut inst3 = getInstance();
-                inst3.setVisible(true);
-                inst3.init();
+                getInstance();
             }
         });
     }
