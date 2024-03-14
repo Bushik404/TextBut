@@ -2,12 +2,10 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 public class TextBut extends JFrame {
 
-    private static int formCount = 1;
+    public static int formCount = 1;
     private static TextBut instance;
 
     private int formIndex;
@@ -23,6 +21,7 @@ public class TextBut extends JFrame {
         }
         return instance;
     }
+
     public void init() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
@@ -42,15 +41,14 @@ public class TextBut extends JFrame {
         clear.setPreferredSize(buttonSize);
         exit.setPreferredSize(buttonSize);
 
-
-        clear.addActionListener(new ActionListener() {
+        clear.addActionListener(new ClearButtonAction(new ClearButtonListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea.setText("");
             }
-        });
+        }));
 
-        exit.addActionListener(new ActionListener() {
+        exit.addActionListener(new ExitButtonAction(new ExitButtonListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (formCount <= 3) {
@@ -62,7 +60,7 @@ public class TextBut extends JFrame {
                     dispose();
                 }
             }
-        });
+        }));
 
         buttonPanel.add(add);
         buttonPanel.add(clear);
@@ -76,13 +74,12 @@ public class TextBut extends JFrame {
         setVisible(true);
     }
 
-    private void openNewWindow() {
+    public void openNewWindow() {
         getInstance();
         formCount++;
     }
 
     public static void main(String[] args) {
-
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
