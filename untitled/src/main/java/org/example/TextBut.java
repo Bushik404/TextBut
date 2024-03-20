@@ -2,26 +2,26 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TextBut extends JFrame {
 
-    public static int formCount = 1;
+    public static int formCount = 0;
     private static TextBut instance;
 
-    private int formIndex;
-
     private TextBut() {
-        formIndex = ++formCount;
         init();
     }
 
-    public static synchronized TextBut getInstance() {
+    public static TextBut getInstance() {
         if (instance == null) {
             instance = new TextBut();
         }
         return instance;
     }
-
+    public int getFormCount() {
+        return formCount;
+    }
     public void init() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout());
@@ -41,26 +41,9 @@ public class TextBut extends JFrame {
         clear.setPreferredSize(buttonSize);
         exit.setPreferredSize(buttonSize);
 
-        clear.addActionListener(new ClearButtonAction(new ClearButtonListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textArea.setText("");
-            }
-        }));
+        clear.addActionListener(new ClearAction(textArea));
 
-        exit.addActionListener(new ExitButtonAction(new ExitButtonListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (formCount <= 3) {
-                    setVisible(false);
-                    setTitle(String.valueOf(formCount));
-                    openNewWindow();
-                    setVisible(true);
-                } else {
-                    dispose();
-                }
-            }
-        }));
+        exit.addActionListener(new ExitAction(this));
 
         buttonPanel.add(add);
         buttonPanel.add(clear);
