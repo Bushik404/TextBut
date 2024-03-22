@@ -46,7 +46,6 @@ public class TextBut extends JFrame {
         clear.addActionListener(new ClearAction(textArea));
 
         exit.addActionListener(new ExitAction(this));
-        setTitle("Окно номер "+ formCount);
         buttonPanel.add(add);
         buttonPanel.add(clear);
         buttonPanel.add(exit);
@@ -56,7 +55,7 @@ public class TextBut extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(500, 500, 500, 500);
-        setVisible(true);
+        showWithTitle(String.valueOf(formCount));
     }
 
     public void showWithTitle(String title) {
