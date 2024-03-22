@@ -14,7 +14,6 @@ public class ExitAction implements ActionListener {
         int formCount = textBut.getFormCount();
         if (formCount <= 3) {
             textBut.setVisible(false);
-            textBut.setTitle(String.valueOf(formCount));
             textBut.showWithTitle(String.valueOf(formCount));
         } else {
             textBut.dispose();
