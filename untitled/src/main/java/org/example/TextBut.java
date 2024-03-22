@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class TextBut extends JFrame {
 
-    public static int formCount = 0;
+    public static int formCount = 1;
     private static TextBut instance;
 
     private TextBut() {
@@ -16,10 +16,12 @@ public class TextBut extends JFrame {
     public static TextBut getInstance() {
         if (instance == null) {
             instance = new TextBut();
+
         }
         return instance;
     }
     public int getFormCount() {
+        formCount++;
         return formCount;
     }
     public void init() {
@@ -44,7 +46,7 @@ public class TextBut extends JFrame {
         clear.addActionListener(new ClearAction(textArea));
 
         exit.addActionListener(new ExitAction(this));
-
+        setTitle("Окно номер "+ formCount);
         buttonPanel.add(add);
         buttonPanel.add(clear);
         buttonPanel.add(exit);
@@ -57,9 +59,9 @@ public class TextBut extends JFrame {
         setVisible(true);
     }
 
-    public void openNewWindow() {
-        getInstance();
-        formCount++;
+    public void showWithTitle(String title) {
+        setTitle("Окно номер "+title);
+        setVisible(true);
     }
 
     public static void main(String[] args) {

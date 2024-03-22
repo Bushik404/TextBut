@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 public class ExitAction implements ActionListener {
     private TextBut textBut;
+    private String title;
     public ExitAction(TextBut textBut){
         this.textBut= textBut;
     }
     @Override
     public void actionPerformed(ActionEvent e){
         int formCount = textBut.getFormCount();
-        if (formCount < 2) {
+        if (formCount <= 3) {
             textBut.setVisible(false);
             textBut.setTitle(String.valueOf(formCount));
-            textBut.openNewWindow();
-            textBut.setVisible(true);
+            textBut.showWithTitle(String.valueOf(formCount));
         } else {
             textBut.dispose();
         }
