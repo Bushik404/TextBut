@@ -43,6 +43,7 @@ public class TextBut extends JFrame {
         clear.setPreferredSize(buttonSize);
         exit.setPreferredSize(buttonSize);
 
+        add.addActionListener(new AddAction(textArea));
         clear.addActionListener(new ClearAction(textArea));
 
         exit.addActionListener(new ExitAction(this));
