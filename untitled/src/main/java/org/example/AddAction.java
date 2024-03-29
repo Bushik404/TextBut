@@ -1,6 +1,5 @@
 package org.example;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
@@ -23,6 +22,12 @@ public class AddAction implements ActionListener {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     stringBuilder.append(line).append("\n");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                        // Обработка прерывания потока
+                        ex.printStackTrace();
+                    }
                 }
                 reader.close();
                 textArea.setText(stringBuilder.toString());
